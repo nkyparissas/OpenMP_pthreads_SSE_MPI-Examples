@@ -22,7 +22,7 @@ typedef struct RRRrrrr {
 
 void *ham_fun(void *param)
 {
-	static int counter= -1 ;
+	static int counter = -1;
 	int ID;
 	
 	RRRrrrr * another_object=(RRRrrrr *) param;
