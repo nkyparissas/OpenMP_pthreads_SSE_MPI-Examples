@@ -25,10 +25,10 @@ typedef struct RRRrrrr {
 
 void *ham_fun(void *param)
 {
-	static int counter= -1 ;
+	static int counter = -1 ;
 	int ID;
 	
-	RRRrrrr * another_object=(RRRrrrr *) param;
+	RRRrrrr * another_object = (RRRrrrr *) param;
 	int m = another_object->m;
 	int n = another_object->n;
 	int l = another_object->l;
@@ -36,8 +36,9 @@ void *ham_fun(void *param)
 	
 
 	pthread_mutex_lock(&ID_lock);
+	
 	if (counter==cores-1){
-		counter=0;
+		counter = 0;
 	}else{
 		counter++;
 	}
@@ -49,7 +50,7 @@ void *ham_fun(void *param)
 		for(int j = 0; j < n; j++){
 			int sum = 0;
 			for(int c = (ID*(l/(float)cores)); c < floor((ID+1)*(l/(float)cores)); c++){
-			// floor() kai float: in case ID*m / cores leaves a remainder
+			// floor(), float: in case ID*m / cores leaves a remainder
 				if (another_object->A[c][i] != another_object->B[c][j])
 					sum++;
 			}
@@ -73,12 +74,12 @@ double gettime(void)
 int main (int argc, char **argv){
 
 	if (pthread_mutex_init(&lock, NULL) != 0){
-        printf("\n mutex init failed\n");
-    }
+		printf("\n mutex init failed\n");
+	}
 	
 	if (pthread_mutex_init(&ID_lock, NULL) != 0){
-        printf("\n mutex init failed\n");
-    }
+		printf("\n mutex init failed\n");
+	}
 
 	double sum = 0;
 	double avg = 0;
@@ -137,7 +138,7 @@ double finky_freeky(int m, int n, int l, int cores, int seed, int loop){
 
 	for (int i = 0; i < l; i++ )
 		for(int j = 0; j < n; j++)
-			B[i][j] =(rand()%2 == 0)?'0':'1' ;
+			B[i][j] = (rand()%2 == 0)?'0':'1' ;
 
 	int** HamTable;
 
@@ -150,20 +151,20 @@ double finky_freeky(int m, int n, int l, int cores, int seed, int loop){
 			HamTable[i][j] = 0;
 	
 	RRRrrrr * object = malloc(sizeof(RRRrrrr));
-	object->A=A;
-	object->B=B;
-	object->Ham=HamTable;
-	object->threads=cores;
-	object->m=m;
-	object->n=n;
-	object->l=l;
+	object->A = A;
+	object->B = B;
+	object->Ham = HamTable;
+	object->threads = cores;
+	object->m = m;
+	object->n = n;
+	object->l = l;
 	
 	double time0 = gettime();
 
 	pthread_t ham_thread[cores];
 
 	for (int i = 0; i<cores; i++){
-		if(pthread_create(&ham_thread[i], NULL, ham_fun, object)) {
+		if(pthread_create(&ham_thread[i], NULL, ham_fun, object)){
 			fprintf(stderr, "Error creating thread\n");
 			return 1;
 		}
@@ -191,10 +192,10 @@ double finky_freeky(int m, int n, int l, int cores, int seed, int loop){
 		printf("Hamming distance for %d, %d, %d: %llu\n", m, n, l, sum );
 	
 	for (int i = 0; i < m; i++) 
-      free (HamTable[i]);
+		free (HamTable[i]);
 	free (HamTable);
 	
-	for (int i = 0; i < l; i++)	{
+	for (int i = 0; i < l; i++){
 		free(A[i]);
 		free(B[i]);
 	}
