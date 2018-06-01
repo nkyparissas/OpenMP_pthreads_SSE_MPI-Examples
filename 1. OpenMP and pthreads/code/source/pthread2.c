@@ -29,15 +29,18 @@ void *ham_fun(void *param)
 	int m = another_object->m;
 	int n = another_object->n;
 	int l = another_object->l;
-	int cores= another_object->threads;	
+	int cores = another_object->threads;	
 	
 	pthread_mutex_lock(&ID_lock);
-	if (counter==cores-1){
-		counter=0;
+	
+	if (counter == cores-1){
+		counter = 0;
 	}else{
 		counter++;
 	}
-	ID=counter;
+	
+	ID = counter;
+	
 	pthread_mutex_unlock(&ID_lock);	
 
 	int array_cells_counter = ID;
@@ -89,10 +92,9 @@ double gettime(void)
 
 int main (int argc, char **argv){
 	
-	if (pthread_mutex_init(&ID_lock, NULL) != 0) 
-    {
-        printf("\n mutex init failed\n");
-    }
+	if (pthread_mutex_init(&ID_lock, NULL) != 0){
+		printf("\n mutex init failed\n");
+	}
 
 	double sum = 0;
 	double avg = 0;
@@ -149,7 +151,7 @@ double finky_freeky(int m, int n, int l, int cores, int seed, int loop){
 
 	for (int i = 0; i < l; i++ )
 		for(int j = 0; j < n; j++)
-			B[i][j] =(rand()%2 == 0)?'0':'1' ;
+			B[i][j] = (rand()%2 == 0)?'0':'1' ;
 
 	int** HamTable;
 
@@ -162,13 +164,13 @@ double finky_freeky(int m, int n, int l, int cores, int seed, int loop){
 			HamTable[i][j] = 0;
 		
 	RRRrrrr * object = malloc(sizeof(RRRrrrr));
-	object->A=A;
-	object->B=B;
-	object->Ham=HamTable;
-	object->threads=cores;
-	object->m=m;
-	object->n=n;
-	object->l=l;
+	object->A = A;
+	object->B = B;
+	object->Ham = HamTable;
+	object->threads = cores;
+	object->m = m;
+	object->n = n;
+	object->l = l;
 	
 	double time0 = gettime();
 
@@ -181,7 +183,7 @@ double finky_freeky(int m, int n, int l, int cores, int seed, int loop){
 		}
 	}
 
-	for (int i=0;i<cores; i++){
+	for (int i=0; i<cores; i++){
 		pthread_join(ham_thread[i],NULL);
 	}
 
@@ -193,8 +195,8 @@ double finky_freeky(int m, int n, int l, int cores, int seed, int loop){
 	*/
 	unsigned long long int sum = 0;
 	for (int i = 0; i < m; i++)
-			for(int j = 0; j < n; j++)
-				sum = HamTable[i][j] + sum;
+		for(int j = 0; j < n; j++)
+			sum = HamTable[i][j] + sum;
 			
 	/*
 	Print the results if this is the last loop executed.
@@ -203,10 +205,10 @@ double finky_freeky(int m, int n, int l, int cores, int seed, int loop){
 		printf("Hamming distance for %d, %d, %d: %llu\n", m, n, l, sum );
 
 	for (int i = 0; i < m; i++) 
-      free (HamTable[i]);
+		free (HamTable[i]);
 	free (HamTable);
 	
-	for (int i = 0; i < l; i++)	{
+	for (int i = 0; i < l; i++){
 		free(A[i]);
 		free(B[i]);
 	}
