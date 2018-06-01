@@ -91,7 +91,7 @@ double finky_freeky(int m, int n, int l, int cores, int seed, int loop){
 		int ID=omp_get_thread_num();
 
 		for(int i = (ID*(m/(float)cores)); i < floor((ID+1)*(m/(float)cores)); i++){
-		// floor() kai float: in case ID*m / cores leaves a remainder	
+		// floor(), float: in case ID*m / cores leaves a remainder	
 			for(int j = 0; j < n; j++){
 				for(int c = 0; c < l; c++){
 					if (A[c][i] != B[c][j])
@@ -124,7 +124,7 @@ double finky_freeky(int m, int n, int l, int cores, int seed, int loop){
 		printf("Hamming distance for %d, %d, %d: %llu\n", m, n, l, sum );
 
 	for (int i = 0; i < m; i++) 
-      free (HamTable[i]);
+		free (HamTable[i]);
 	free (HamTable);
 	
 	for (int i = 0; i < l; i++)	{
