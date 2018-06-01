@@ -22,7 +22,7 @@ typedef struct RRRrrrr {
 
 void *ham_fun(void *param)
 {	
-	static int counter = -1 ;
+	static int counter = -1;
 	int ID;
 
 	RRRrrrr * another_object = (RRRrrrr *) param;
@@ -34,7 +34,7 @@ void *ham_fun(void *param)
 
 	pthread_mutex_lock(&ID_lock);
 	
-	if (counter == cores -1){
+	if (counter == cores-1){
 		counter = 0;
 	}else{
 		counter++;
