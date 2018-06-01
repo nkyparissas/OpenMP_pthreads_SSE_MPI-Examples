@@ -32,17 +32,18 @@ void *ham_fun(void *param)
 	int m = another_object->m;
 	int n = another_object->n;
 	int l = another_object->l;
-	int cores= another_object->threads;
+	int cores = another_object->threads;
 	
 
 	pthread_mutex_lock(&ID_lock);
 	
-	if (counter==cores-1){
+	if (counter == cores-1){
 		counter = 0;
 	}else{
 		counter++;
 	}
-	ID=counter;
+	
+	ID = counter;
 	
 	pthread_mutex_unlock(&ID_lock);
 		
@@ -182,8 +183,8 @@ double finky_freeky(int m, int n, int l, int cores, int seed, int loop){
 	*/
 	unsigned long long int sum = 0;
 	for (int i = 0; i < m; i++)
-			for(int j = 0; j < n; j++)
-				sum = HamTable[i][j] + sum;
+		for(int j = 0; j < n; j++)
+			sum = HamTable[i][j] + sum;
 	
 	/*
 	Print the results if this is the last loop executed.
