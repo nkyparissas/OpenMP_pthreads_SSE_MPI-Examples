@@ -97,7 +97,7 @@ double finky_freeky(int m, int n, int l, int cores, int seed, int loop){
 			for(int j = 0; j < n; j++){
 				int sum = 0;
 				for(int c = (ID*(l/(float)cores)); c < floor((ID+1)*(l/(float)cores)); c++){
-				// floor() kai float: in case ID*m / cores leaves a remainder
+				// floor(), float: in case ID*m / cores leaves a remainder
 					if (A[c][i] != B[c][j])
 						sum++;
 				}
