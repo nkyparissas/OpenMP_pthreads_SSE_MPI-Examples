@@ -150,7 +150,7 @@ double finky_freeky(int m, int n, int l, int cores, int seed, int loop){
 		printf("Hamming distance for %d, %d, %d: %llu\n", m, n, l, sum );
 
 	for (int i = 0; i < m; i++) 
-      free (HamTable[i]);
+		free (HamTable[i]);
 	free (HamTable);
 	
 	for (int i = 0; i < l; i++)	{
